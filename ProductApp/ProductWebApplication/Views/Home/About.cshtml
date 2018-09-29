@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div>
+    On backend <span class="done">C#</span> need to be used with <span class="done">Entity Framework</span>, and <span class="done">MSSQL as storage</span> , in the frontend it can be plain html + javascript with or without any frameworks like angular (the main focus is on the backend). We use <span class="done">code first</span> in our solutions so the implementation is expected in that way.
+    We assume the page is used by people with proper rights and they see what they can see (so no authentication or authorization required, a static guid can be used in the processes where the current user is involved).
+    <br /><br />
+    We need to have the following entities, with the properties/features below:
+    <br /><br />
+    <p>Manufacturers</p>
+    <ul>
+        <li class="done">name (max. 100 chars)</li>
+        <li class="notDone">logo (progress when upload happens, store in png, resize to fit in a 256 by 256 pixels box while keeping aspect ratio)</li>
+        <li class="done">products"</li>
+        <li class="done">when it was created (date and time)</li>
+        <li class="done">who created (guid))</li>
+        <li class="done">when it was updated (date and time)</li>
+        <li class="done">who updated (guid)</li>
+    </ul>
+    <br /><br />
+    <p>Products</p>
+    <ul>
+        <li class="done">name (max. 100 chars)</li>
+        <li class="notDone">image (progress when upload happens, store in png, resize to fit in a 256 by 256 pixels box while keeping aspect ratio)</li>
+        <li class="done">always belongs to a manufacturer</li>
+        <li class="done">when it was created (date and time)</li>
+        <li class="done">who created (guid))</li>
+        <li class="done">when it was updated (date and time)</li>
+        <li class="done">who updated (guid)</li>
+    </ul>
+    <br /><br />
+    Since we assume the user is already logged in, the guid which identifies the user can be a constant guid defined in the application.
+    <br /><br />
+    <span class="done">CRUD operations need to be implemented as a Web API</span>
+    <br /><br />
+    Frontend should be imagined like this:
+    (Design is irrelevant. Some css classes can be added but the main focus is on the backend part.)
+    <br /><br />
+    <p>Main page:</p>
+    <ul>
+        <li class="done">List of manufacturers (home/index)</li>
+        <li class="done"> Create manufacturer (can be a feature on home/index or a home/create)</li>
+        <li class="done"> Update manufacturer (can be a feature on home/index or a home/update)</li>
+        <li class="done"> Delete manufacturer (can happen on home/index)</li>
+    </ul>
+    <p>Manufacturer page:</p>
+    <ul>
+        <li class="done">List of products based on selected manufacturer (manufacturer/{id}/index)</li>
+        <li class="done">Create product (can be a feature on manufacturer/{id}/index or a manufacturer/{id}/create)</li>
+        <li class="done">Update product (can be a feature on manufacturer/{id}/index or a manufacturer/{id}/update)</li>
+        <li class="done">Update product (can be a feature on manufacturer/{id}/index or a manufacturer/{id}/update)</li>
+    </ul>
+    <hr>
+    <div>
+        <h3>
+            Solution
+        </h3>
+        <h4>
+            Diagram
+        </h4>
+        <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile userAgent=\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\&quot; version=\&quot;9.1.8\&quot; editor=\&quot;www.draw.io\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;1c74b675-5a16-38c5-dfbd-75a5df117c2b\&quot; name=\&quot;Page-1\&quot;&gt;7VpRd5s2FP41fmwOIMDmMXGydWfpli1na/soQLZ1IiNPyLXTX78rEBiEXBMH2zlt09MEXQmBvvvp09UVIzRdbn8VeLX4wFPCRp6TbkfoduR5ru+F8EdZnkvLOPRLw1zQVDfaGR7pV6KNjrauaUryVkPJOZN01TYmPMtIIls2LATftJvNOGs/dYXnpGN4TDDrWj/SVC5K6yRwdvb3hM4X1ZNdR9fEOHmaC77O9PNGHpoVP2X1Eld96fb5Aqd80zChuxGaCs5lebXcTglT2Fawlff9sqe2fm9BMtnnBpSM43GUOPE4dYOIBO9c3cUXzNYajOuva0HA9PjXPfy+xRLHOCf6/eVzhRkMZaUuk2dGs5SIEbrZLKgkjyucKPsGqAK2hVwyKLlwGSucSHof14YavT/XEnoh2j6jjE0546J4EppNEpIkYM+l4E+kURNPAh+chG70IIiQZLsXGrcGHIhM+JJI8QxN9A1j7aLnitS6vNkRomqyaHAh0jasKTivO965AS60J/p6xet45UHwdA3U95y/yYrnVHL9jKZPRIkwFJzD7jBRns08O8ppGIdBOAzKrgmzF3Rgdj0LzuFJcEYdnD/gbD3DiYQ5IL47sKOLgh10wFbiopSGiC80UZozZVSNbUio04BMUt8G9cSLUTgQ1H5g8rorHxML0i4KTgF12IH6I4nBcP3w28A8JuEeHo+j2BlImpF3LLiTU4A77oDbwZRk6bWKS6CUcbWu3aQ4XxQgu21Ay1tJ2glQDoLTGHxgGXxlE4RhSb+0u7cBop/wwKmagTWxDeyRqQ05X4uE6LuaoceBjnyjH4nFnMhOP4V76lEf6bGJxWMhk4rPvHjHnevC/9a8qniXF5HqNTRw/dV2VwlXc/X3BgIYcHXVGbxY2V9Z22EFzADZ9n572miqNOeYNmFG55kKtoAURail5hOFAPZaVyxpmqrHWOdve4YPsbDs8WVzXYksnESnWFe87rryrfmYMJzntNQsLGTX3HAPwCGeP2ncisJnVbiCR0J5S+WnqiFcl1XoBXMaXrGYPAdi83JmfDNUvJQ6GAGGbzq4rziYhEKT86mD110sB+eP2+bPuEEfp0WfYED6oD70ueji8l3Q52XhgJ0ne7mwj0FD8iTow5PwJ09eyRNbEHIkT9z9PLGtVEMRxXvzREFO28HusdEqco2OzsmUaACm7OHDeH/kcval56ekvJIo1Ts301f/TtU2f7VisDuQlGcd5rxqux+of7btflj8DLO7CMy0lWtJWyELNVxzTznI/gJZUuSJhIGbyFYZ8fWSlQ1227R7HBP2oDKJyiXoNuZS8iU0YKrips6Dt1OE6hyhu9WT3HASL5Pn0/pwZKiMeHjYD6HNDSfJaSGv44Z/cnWu8zZ32SoRoA+6XH8Yf4QV/pVmdd3hW9zhnWRS9Nh0V/NhxshWL1Y3h9YtM3mLyWSWWOCsI+YrFLVWMU+XHoigMEzlxsIfXcVKJiSeDbfmIf+Sy5lvaCY6dj3zo3ZHnbOAU65nvoVU7TxddXRcZeLcblLu90ydB0PwsVAnCkXG27nL0pV6Y7BPqy5jUd2xzmHaFiOEX/A/0acQjuTtfiz3/kHkhounyoNFR4LkK57lNKYMBJ/k3bv6ZgwBMLrKleLUx62Mr9MeC7cxX/bNq0PT4nV5+8keUjbmhOcElhXEOYlm9diBnVKzqlG7ZYBefQcRXTlRK2Lfbeg+j4z8wFVYpx4vLXc67fGGQ3wvaq+XyDfikt6bQb/dUd3xOTTRll56sSa+L7QtgRsEZ4wIVZqpENYhOFnAn2X5TY9dHHdq2tQ4fTD+A+ubeb5+aX3rkTc4T0xmilSwR6WamhdGLdW7crzacH5xC3uIG3Ls5DiPuIW+d2XImxno95W3MDK7qrMj5xA42/HLEQKXwc5MCRXoldI1qrZwOFH7bXvQN8WM2YQNxrLgqapRyZPi+zf9fUr1ccqPKXaBsTGo6XYKsYPi7qPIkmW7L0/R3f8=&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+        <script type="text/javascript" src="https://www.draw.io/js/viewer.min.js"></script>
+        <h4>
+            Still Required
+        </h4>
+        <ul>
+            <li class="notDone">Image uploading solution in UI and Backend</li>
+            <li class="possibleWork">Error handling in the controllers, and on the ui</li>
+            <li class="possibleWork">Integration tests</li>
+            <li class="possibleWork">Decouple the Web APIs to a different solution, it is almost independent, the shared models can be NuGet package</li>
+            <li class="possibleWork">Versioning</li>
+        </ul>
+    </div>
+    <br /><br />
+</div>
