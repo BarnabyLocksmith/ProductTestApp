@@ -57,7 +57,7 @@
         {
             if (ModelState.IsValid)
             {
-                var response = await client.CreateManufacturer(manufacturer); //TODO Userid?
+                var response = await client.CreateManufacturer(manufacturer);
 
                 return RedirectToAction(nameof(Index));
             }

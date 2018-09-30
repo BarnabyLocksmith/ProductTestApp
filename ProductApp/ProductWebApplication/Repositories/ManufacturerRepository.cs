@@ -58,7 +58,6 @@
 
         public Task<int> DeleteManufacturer(int id)
         {
-            // TODO Products need to be deleted too? Yes
             var manufacturer = context.Manufacturers.FirstOrDefault(x => x.Id == id);
             var products = GetProductsForManufacturer(id);
 
