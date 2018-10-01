@@ -31,6 +31,8 @@ namespace ProductWebApplication.Migrations
 
                     b.Property<string>("Logo");
 
+                    b.Property<byte[]>("LogoData");
+
                     b.Property<string>("Name")
                         .HasMaxLength(100);
 
@@ -54,6 +56,8 @@ namespace ProductWebApplication.Migrations
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Image");
+
+                    b.Property<byte[]>("ImageData");
 
                     b.Property<int?>("ManufacturerId");
 

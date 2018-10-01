@@ -22,5 +22,7 @@
         public DateTime UpdatedDate { get; set; }
 
         public Guid UpdatedBy { get; set; }
+
+        public byte[] LogoData { get; set; }
     }
 }

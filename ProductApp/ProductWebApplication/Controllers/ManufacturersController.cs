@@ -2,10 +2,12 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ProductWebApplication.DataServiceClients;
     using ProductWebApplication.Models;
+    using ProductWebApplication.Statics;
 
     public class ManufacturersController : Controller
     {
@@ -53,10 +55,17 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Logo")] ManufacturerViewModel manufacturer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Logo")] ManufacturerViewModel manufacturer, IFormFile logo)
         {
             if (ModelState.IsValid)
             {
+                if (logo != null && logo.ContentType == "image/png")
+                {
+                    var resizedImage = ImageSizeUtility.Resize(logo, 250, 250);
+                    manufacturer.LogoData = ImageSizeUtility.ToByteArray(resizedImage);
+                    manufacturer.Logo = logo.FileName;
+                }
+
                 var response = await client.CreateManufacturer(manufacturer);
 
                 return RedirectToAction(nameof(Index));
@@ -86,7 +95,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Logo")] ManufacturerViewModel manufacturer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Logo")] ManufacturerViewModel manufacturer, IFormFile logo)
         {
             if (id != manufacturer.Id)
             {
@@ -95,6 +104,13 @@
 
             if (ModelState.IsValid)
             {
+                if (logo != null && logo.ContentType == "image/png")
+                {
+                    var resizedImage = ImageSizeUtility.Resize(logo, 250, 250);
+                    manufacturer.LogoData = ImageSizeUtility.ToByteArray(resizedImage);
+                    manufacturer.Logo = logo.FileName;
+                }
+
                 try
                 {
                     var response = await client.ModifyManufacturer(id, manufacturer);

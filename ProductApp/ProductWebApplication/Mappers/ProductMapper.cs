@@ -10,6 +10,7 @@
             {
                 Image = productViewModel.Image,
                 Name = productViewModel.Name,
+                ImageData = productViewModel.ImageData,
                 Manufacturer = new Manufacturer
                 {
                     Id = productViewModel.ManufacturerId

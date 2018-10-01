@@ -2,9 +2,11 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using ProductWebApplication.DataServiceClients;
     using ProductWebApplication.Models;
+    using ProductWebApplication.Statics;
 
     public class ProductsController : Controller
     {
@@ -54,10 +56,18 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Image,ManufacturerId")] ProductViewModel product)
+        public async Task<IActionResult> Create([Bind("Name,Image,ManufacturerId")] ProductViewModel product, IFormFile image)
         {
+
             if (ModelState.IsValid)
             {
+                if (image != null && image.ContentType == "image/png")
+                {
+                    var resizedImage = ImageSizeUtility.Resize(image, 250, 250);
+                    product.ImageData = ImageSizeUtility.ToByteArray(resizedImage);
+                    product.Image = image.FileName;
+                }
+
                 await client.CreateProduct(product);
 
                 return RedirectToAction(nameof(Index));
@@ -77,7 +87,8 @@
             {
                 Image = originalProduct.Image,
                 ManufacturerId = originalProduct.Manufacturer.Id,
-                Name = originalProduct.Name
+                Name = originalProduct.Name,
+                ImageData = originalProduct.ImageData
             };
 
             if (product == null)
@@ -92,10 +103,17 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Image,ManufacturerId")] ProductViewModel product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Image,ManufacturerId")] ProductViewModel product, IFormFile image)
         {
             if (ModelState.IsValid)
             {
+                if (image != null && image.ContentType == "image/png")
+                {
+                    var resizedImage = ImageSizeUtility.Resize(image, 250, 250);
+                    product.ImageData = ImageSizeUtility.ToByteArray(resizedImage);
+                    product.Image = image.FileName;
+                }
+
                 try
                 {
                     var response = await client.ModifyProduct(id, product);

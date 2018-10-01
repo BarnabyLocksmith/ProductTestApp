@@ -1,6 +1,7 @@
 ﻿namespace ProductWebApplication.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     public class Product
     {
@@ -13,6 +14,7 @@
 
         public Manufacturer Manufacturer { get; set; }
 
+        [StringLength(100)]
         public string Name { get; set; }
 
         public int Id { get; set; }
@@ -24,5 +26,7 @@
         public DateTime UpdatedDate { get; set; }
 
         public Guid UpdatedBy { get; set; }
+
+        public byte[] ImageData { get; set; }
     }
 }

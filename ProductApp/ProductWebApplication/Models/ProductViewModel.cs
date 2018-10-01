@@ -14,5 +14,7 @@
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        public byte[] ImageData { get; set; }
     }
 }

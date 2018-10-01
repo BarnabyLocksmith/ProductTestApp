@@ -11,5 +11,7 @@
         public string Name { get; set; }
 
         public string Logo { get; set; }
+
+        public byte[] LogoData { get; set; }
     }
 }

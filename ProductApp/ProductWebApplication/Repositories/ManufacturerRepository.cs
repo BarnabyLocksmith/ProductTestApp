@@ -49,6 +49,7 @@
             var originalManufacturer = context.Manufacturers.FirstOrDefaultAsync(x => x.Id == id).Result;
             originalManufacturer.Name = manufacturer.Name;
             originalManufacturer.Logo = manufacturer.Logo;
+            originalManufacturer.LogoData = manufacturer.LogoData;
             originalManufacturer.UpdatedBy = userId;
             originalManufacturer.UpdatedDate = DateTime.UtcNow;
 

@@ -66,6 +66,7 @@
             originalProduct.Manufacturer = GetManufacturer(product.Manufacturer.Id);
             originalProduct.Name = product.Name;
             originalProduct.Image = product.Image;
+            originalProduct.ImageData = product.ImageData;
             originalProduct.UpdatedDate = DateTime.UtcNow;
             originalProduct.UpdatedBy = userId;
             context.Update(originalProduct);
