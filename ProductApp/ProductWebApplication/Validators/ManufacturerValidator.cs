@@ -17,7 +17,7 @@
 
             if (!ImageValidation(manufacturer.LogoData))
             {
-                throw new ProductValidationException("Invalid manufacturer property: Logo");
+                throw new ManufacturerValidationException("Invalid manufacturer property: Logo");
             }
         }
 
@@ -30,6 +30,10 @@
                     using (MemoryStream ms = new MemoryStream(image))
                     {
                         var convertedImage = Image.FromStream(ms);
+                        if (convertedImage.Size.Height > 250 || convertedImage.Size.Width > 250)
+                        {
+                            return false;
+                        }
                     }
                 }
                 catch (ArgumentException)

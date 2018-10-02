@@ -35,6 +35,11 @@
                     using (MemoryStream ms = new MemoryStream(image))
                     {
                         var convertedImage = Image.FromStream(ms);
+
+                        if (convertedImage.Size.Height > 250 || convertedImage.Size.Width > 250)
+                        {
+                            return false;
+                        }
                     }
                 }
                 catch (ArgumentException)
